@@ -19,17 +19,17 @@ Get-Volume -DriveLetter H | Select-Object -Property DriveLetter, FileSystemLabel
 
 ## Configuration
 
-1. Create a configuration file named `config.txt` in a directory that will be ignored by Git (ensure this directory is listed in your `.gitignore` file).
+1. Create a configuration file named `config.txt` in a directory.
 
 2. Add the following settings to `config.txt`, replacing the placeholders with your actual values:
 
     ```plaintext
-    TargetDriveLetter=H
-    TargetLabel=USB_SYNC
-    TargetSerialNumber=\\?\Volume{1ca28332-127b-11ef-865e-b4b5b692a164}\
-    SourceDirectory=C:\Users\karan\PycharmProjects\pmt-backend
-    ItemsToCopy=file1.txt,local_manage.py,local_pmt
-    DestinationFolder=pmt_backend
+    TargetDriveLetter=YOUR_DRIVE_LETTER
+    TargetLabel=YOUR_USB_LABEL
+    TargetSerialNumber=YOUR_USB_SERIAL_NUMBER
+    SourceDirectory=YOUR_SOURCE_DIRECTORY
+    ItemsToCopy=YOUR_ITEMS_TO_COPY
+    DestinationFolder=YOUR_DESTINATION_FOLDER
     ```
 
     - `TargetDriveLetter`: The drive letter assigned to your USB drive.

@@ -1,14 +1,6 @@
-$targetDriveLetter = "H"  
-$targetDriveLetterWithColon = $targetDriveLetter + ":"
-$targetLabel = "USB_SYNC"  
-$targetSerialNumber = "\\?\Volume{1ca28332-127b-11ef-865e-b4b5b692a164}\"  
+
 $configFilePath = "A:\Scripts\usb_auto_sync\config.txt"  # Replace with the actual path to your config file
 
-$drive = Get-Volume -FileSystemLabel $targetLabel
-
-if ($drive -and $drive.DriveLetter -eq $targetDriveLetter -and $drive.UniqueId -eq $targetSerialNumber) {
-    Start-Process explorer.exe -ArgumentList $targetDriveLetterWithColon
-}
 # Function to read the configuration file and return a hashtable of key-value pairs
 function Get-Config {
     param (
@@ -33,7 +25,13 @@ function Get-Config {
 # Read the configuration file
 $config = Get-Config -path $configFilePath
 
+
+
 # Extract the source directory and items to copy from the configuration
+$targetDriveLetter = $config["TargetDriveLetter"]
+$targetDriveLetterWithColon = $targetDriveLetter + ":"
+$targetLabel = $config["TargetLabel"]  
+$targetSerialNumber = $config["TargetSerialNumber"]
 $sourceDirectory = $config["SourceDirectory"]
 $itemsToCopy = $config["ItemsToCopy"] -split ','
 $destinationFolder = $config["DestinationFolder"]
@@ -41,6 +39,15 @@ $destinationFolder = $config["DestinationFolder"]
 $destinationDirectory = Join-Path -Path $targetDriveLetterWithColon -ChildPath $destinationFolder
 
 $drive = Get-Volume -FileSystemLabel $targetLabel
+
+
+
+
+$drive = Get-Volume -FileSystemLabel $targetLabel
+
+if ($drive -and $drive.DriveLetter -eq $targetDriveLetter -and $drive.UniqueId -eq $targetSerialNumber) {
+    Start-Process explorer.exe -ArgumentList $targetDriveLetterWithColon
+}
 
 if ($drive -and $drive.DriveLetter -eq $targetDriveLetter -and $drive.UniqueId -like "*$targetSerialNumber*") {
     foreach ($item in $itemsToCopy) {

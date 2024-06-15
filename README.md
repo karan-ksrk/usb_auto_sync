@@ -8,6 +8,15 @@ This PowerShell script copies specified files and folders from a source director
 - PowerShell installed
 - A USB drive with a known volume label and serial number
 
+
+## Getting Drive Information
+
+To get the necessary information about your USB drive (drive letter, volume label, and unique serial number), you can use the following PowerShell command:
+
+```powershell
+Get-Volume -DriveLetter H | Select-Object -Property DriveLetter, FileSystemLabel, UniqueId
+```
+
 ## Configuration
 
 1. Create a configuration file named `config.txt` in a directory that will be ignored by Git (ensure this directory is listed in your `.gitignore` file).

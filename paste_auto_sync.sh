@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the path to the configuration file
-CONFIG_FILE_PATH="config.txt"  # Replace with the actual path to your config file
+CONFIG_FILE_PATH="/home/karan/scripts/usb_auto_sync/config.txt"  # Replace with the actual path to your config file
 
 # Function to read the configuration file and return an associative array of key-value pairs
 declare -A config
@@ -52,6 +52,9 @@ if [[ -n $MOUNT_POINT && $MOUNT_POINT == $TARGET_MOUNT_POINT ]]; then
                 # Forcefully copy the file
                 cp -f "$SOURCE_PATH" "$DESTINATION_PATH"
             fi
+            # Set permissions for the copied item
+            chown -R karan:karan "$DESTINATION_PATH$item"
+            chmod -R 755 "$DESTINATION_PATH$item"
         else
             echo "Source item does not exist: $SOURCE_PATH"
         fi
